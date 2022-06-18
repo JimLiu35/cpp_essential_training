@@ -16,10 +16,10 @@ public:
     Rational reduce() const;        // reduce fraction
     std::string string() const;     // return a formatted STL string
     std::string raw_string() const;     // return a non-reduced STL string
-    Rational operator + ( const Rational & ) const;
-    Rational operator - ( const Rational & ) const;
-    Rational operator * ( const Rational & ) const;
-    Rational operator / ( const Rational & ) const;
+    // Rational operator + ( const Rational & ) const;
+    // Rational operator - ( const Rational & ) const;
+    // Rational operator * ( const Rational & ) const;
+    // Rational operator / ( const Rational & ) const;
 };
 
 Rational & Rational::operator = ( const Rational & rhs ) {
@@ -60,20 +60,22 @@ std::string Rational::raw_string() const {
     return std::to_string(n) + "/" + std::to_string(d);
 }
 
-Rational Rational::operator + ( const Rational & rhs ) const {
-    return Rational((n * rhs.d) + (d * rhs.n), d * rhs.d);
+Rational operator + ( const Rational & lhs, const Rational & rhs ) {
+    return Rational((lhs.numerator() * rhs.denominator()) + (lhs.denominator() * rhs.numerator()), 
+    lhs.denominator() * rhs.denominator());
 }
 
-Rational Rational::operator - ( const Rational & rhs ) const {
-    return Rational((n * rhs.d) - (d * rhs.n), d * rhs.d);
+Rational operator - ( const Rational & lhs, const Rational & rhs ) {
+    return Rational((lhs.numerator() * rhs.denominator()) - (lhs.denominator() * rhs.numerator()), 
+    lhs.denominator() * rhs.denominator());
 }
 
-Rational Rational::operator * ( const Rational & rhs ) const {
-    return Rational(n * rhs.n, d * rhs.d);
+Rational operator * ( const Rational & lhs, const Rational & rhs ) {
+    return Rational(lhs.numerator() * rhs.numerator(), lhs.denominator() * rhs.denominator());
 }
 
-Rational Rational::operator / ( const Rational & rhs ) const {
-    return Rational(n * rhs.d, d * rhs.n);
+Rational operator / ( const Rational & lhs, const Rational & rhs ) {
+    return Rational(lhs.numerator() * rhs.denominator(), lhs.denominator() * rhs.numerator());
 }
 
 Rational::~Rational() {
