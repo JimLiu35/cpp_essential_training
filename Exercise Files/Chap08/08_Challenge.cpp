@@ -70,7 +70,6 @@ int main() {
     puts("Reading file");
     FILE * fr = fopen(fileName, "r");
     char buffer[1024];
-    // const char * nTerm = '\0';
     while (fgets(buffer, 1024, fr))
     {
         static int index = 1;
@@ -78,15 +77,12 @@ int main() {
         char idTemp[strsize] = {};
         char nameTemp[strsize] = {};
         char disTemp[strsize] = {};
-        // strncpy(idTemp, buffer, 1);
         idTemp[0] = buffer[0];
         sID = idTemp;
         strncpy(nameTemp, buffer, cp - buffer);
         sName = nameTemp + 2;
         strcpy(disTemp, buffer);
         sDis = disTemp + (cp - buffer) + 1;
-        // printf("%c\n", *sID);
-        // printf("%c\n", sName);
 
         fputs(sName, stdout);
         printf("\n");
@@ -120,5 +116,6 @@ int main() {
     i2.stockDisplay();
     i3.stockDisplay();
     i4.stockDisplay();
+    fclose(fr);
     return 0;
 }
